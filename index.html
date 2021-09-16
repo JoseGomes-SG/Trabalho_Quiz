@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>Quiz</title>
+    <link rel="shortcut icon" href="/assets/favicon.ico">
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+    <div class="container">
+
+        <form class="form" id="loginAccount">
+            <h1 class="form__title">Login</h1>
+            <div class="form__input-group">
+                <input id="email" type="text" class="form__input" autofocus placeholder="Email">
+            </div>
+            <div class="form__input-group">
+                <input id="senha" type="password" class="form__input" autofocus placeholder="Senha">
+            </div>
+            <button class="form__button" type="submit">Entrar</button>
+            <p class="form__text">
+                <a class="form__link" href="./cadastro.html" id="linkCreateAccount">Criar Conta</a>
+            </p>
+        </form>
+    
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+      https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+
+    <script src="./js/login.js"></script>
+</body>

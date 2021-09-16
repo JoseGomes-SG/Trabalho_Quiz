@@ -25,15 +25,18 @@ loginForm.addEventListener("submit", e => {
       if (querySnapshot.size > 0) {
           alert("Bem vindo " + querySnapshot.docs[0].data().nome);
       } else {
-          alert("Usuário não existe");
+          alert("Usuário/ Senha inválidos");
+
+          // Limpa os campos 
+        createForm.email.value = "";
+        createForm.nome.value = "";
+        createForm.senha.value = "";
       }
     })
     .catch( function(error) {
         console.log(error);
     });
 
-    // Limpa os campos 
-    createForm.email.value = "";
-    createForm.nome.value = "";
-    createForm.senha.value = "";
+    // Abre a área do usuário
+    window.open("./usuario.html","_self");
 });

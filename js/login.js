@@ -24,6 +24,9 @@ loginForm.addEventListener("submit", e => {
 
       if (querySnapshot.size > 0) {
           alert("Bem vindo " + querySnapshot.docs[0].data().nome);
+
+          // Abre a área do usuário
+          window.open("./usuario.html","_self");
       } else {
           alert("Usuário/ Senha inválidos");
 
@@ -36,7 +39,4 @@ loginForm.addEventListener("submit", e => {
     .catch( function(error) {
         console.log(error);
     });
-
-    // Abre a área do usuário
-    window.open("./usuario.html","_self");
 });

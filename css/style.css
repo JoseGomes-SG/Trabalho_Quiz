@@ -1,8 +1,9 @@
 body {
     --color-primary: #0a5cff;
-    --color-primary-dark:  #000aff;
+    --color-primary-dark: #000aff;
     --color-secondary: #252c6a;
     --color-error: #cc3333;
+    --color-success: #4bb544;
     --border-radius: 4px;
 
     margin: 0;
@@ -30,6 +31,10 @@ body {
     font: 500 1rem 'Quicksand', sans-serif;
 }
 
+.form--hidden {
+    display: none;
+}
+
 .form > *:first-child {
     margin-top: 0;
 }
@@ -46,6 +51,14 @@ body {
 .form__message {
     text-align: center;
     margin-bottom: 1rem;
+}
+
+.form__message--success {
+    color: var(--color-success);
+}
+
+.form__message--error {
+    color: var(--color-error);
 }
 
 .form__input-group {
@@ -71,8 +84,13 @@ body {
 
 .form__input--error {
     color: var(--color-error);
-    text-align: center;
-    margin-bottom: 2rem;
+    border-color: var(--color-error);
+}
+
+.form__input-error-message {
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: var(--color-error);
 }
 
 .form__button {

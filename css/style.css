@@ -1,9 +1,8 @@
 body {
-    --color-primary: rgb(10,92,255);
-    --color-primary-dark:  rgb(0,10,255);
+    --color-primary: #0a5cff;
+    --color-primary-dark:  #000aff;
     --color-secondary: #252c6a;
     --color-error: #cc3333;
-    --color-success: #4bb544;
     --border-radius: 4px;
 
     margin: 0;
@@ -12,7 +11,7 @@ body {
     align-items: center;
     justify-content: center;
     font-size: 18px;
-    background: rgb(29, 26,26);
+    background: #1d1a1a;
     background-size: cover;
 }
 
@@ -49,14 +48,6 @@ body {
     margin-bottom: 1rem;
 }
 
-.form__message--success {
-    color: var(--color-success);
-}
-
-.form__message--error {
-    color: var(--color-error);
-}
-
 .form__input-group {
     margin-bottom: 1rem;
 }
@@ -80,13 +71,8 @@ body {
 
 .form__input--error {
     color: var(--color-error);
-    border-color: var(--color-error);
-}
-
-.form__input-error-message {
-    margin-top: 0.5rem;
-    font-size: 0.85rem;
-    color: var(--color-error);
+    text-align: center;
+    margin-bottom: 2rem;
 }
 
 .form__button {

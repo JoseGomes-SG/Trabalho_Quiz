@@ -3,32 +3,67 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>Quiz</title>
-    <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div class="container">
-
-        <form class="form" id="loginAccount">
+        <div class="form" id="loginAccount">
             <h1 class="form__title">Login</h1>
+            <div id="error" class="form__input--error"></div>
             <div class="form__input-group">
                 <input id="email" type="text" class="form__input" autofocus placeholder="Email">
             </div>
             <div class="form__input-group">
                 <input id="senha" type="password" class="form__input" autofocus placeholder="Senha">
             </div>
-            <button class="form__button" type="submit">Entrar</button>
+            <button id="entrar" class="form__button">Entrar</button>
             <p class="form__text">
                 <a class="form__link" href="./cadastro.html" id="linkCreateAccount">Criar Conta</a>
             </p>
-        </form>
+        </div>
+    </div>
     
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script type="module">
+        // Importando funções do firebase 
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-      https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
+            authDomain: "form-f5d6e.firebaseapp.com",
+            databaseURL: "https://form-f5d6e-default-rtdb.firebaseio.com",
+            projectId: "form-f5d6e",
+            storageBucket: "form-f5d6e.appspot.com",
+            messagingSenderId: "391345569169",
+            appId: "1:391345569169:web:68dc5bdb320cc39b072e30",
+            measurementId: "G-6NLYV6PCDL"
+        };
+      
+        // Inicializa o banco
+        initializeApp(firebaseConfig);
 
-    <script src="./js/login.js"></script>
+        const auth = getAuth();
+
+        const acessForm = document.querySelector("#entrar");
+        
+        // Faz login na conta do usuário 
+        acessForm.addEventListener("click", e => {
+            signInWithEmailAndPassword(auth, email.value, senha.value)
+            .then((userCredential) => {
+                const user = userCredential.user;
+
+                alert("Bem Vindo!");
+                window.open("./usuario.html","_self");
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+
+                falha();
+
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+        });
+    </script>
+    <script src="./js/index.js"></script>
 </body>

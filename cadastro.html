@@ -3,13 +3,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>Quiz</title>
-    <link rel="shortcut icon" href="/assets/favicon.ico">
     <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
     <div class="container">
-
-        <form class="form" id="createAccount">
+        <div class="form" id="createAccount">
             <h1 class="form__title">Criar Conta</h1>
             <div class="form__input-group">
                 <input id="email" type="text" class="form__input" autofocus placeholder="Email">
@@ -20,18 +18,51 @@
             <div class="form__input-group">
                 <input id="senha" type="password" class="form__input" autofocus placeholder="Senha">
             </div>
-            <button class="form__button" type="submit">Cadastrar-se</button>
+            <button id="cadastrar" class="form__button">Cadastrar-se</button>
             <p class="form__text">
                 <a class="form__link" href="./index.html" id="linkLogin">Já possui uma conta? Entrar</a>
             </p>
-        </form>
-    
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+        </div>
+    </div>
 
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-      https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+    <script type="module">
+        // Importando funções do firebase 
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
-    <script src="./js/cadastro.js"></script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
+            authDomain: "form-f5d6e.firebaseapp.com",
+            databaseURL: "https://form-f5d6e-default-rtdb.firebaseio.com",
+            projectId: "form-f5d6e",
+            storageBucket: "form-f5d6e.appspot.com",
+            messagingSenderId: "391345569169",
+            appId: "1:391345569169:web:68dc5bdb320cc39b072e30",
+            measurementId: "G-6NLYV6PCDL"
+        };
+      
+        // Inicializa o banco 
+        initializeApp(firebaseConfig);
+        const auth = getAuth();
+
+        // Associa o formulário 
+        const createForm = document.querySelector("#cadastrar");
+
+        // Cadastrar Usuário 
+        createForm.addEventListener("click", e=> {
+            createUserWithEmailAndPassword(auth, email.value, senha.value)
+            .then((userCredential) => {
+                const user = userCredential.user;
+
+                alert("Usuário Cadastrado Com Sucesso!");
+                window.open("./index.html","_self");
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                
+                console.log(errorCode);
+                console.log(errorMessage);
+            });
+        });
+    </script>
 </body>

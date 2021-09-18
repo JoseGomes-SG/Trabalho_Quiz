@@ -7,6 +7,62 @@
 </head>
 <body>
     <div class="container">
-        <h2>Área do usuário (em construção)</h2>
+        <div class="form" id="login">
+            <h1 id="username" class="form__title"></h1>
+            <h2 id="email" class="form__title"></h2>
+            <p>
+                Página do usuário ainda em contrução
+            </p>
+            <button id="logout" class="form__button">Sair</button>
+        </div>
     </div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+        import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
+        import { getAuth,signOut,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
+            authDomain: "form-f5d6e.firebaseapp.com",
+            databaseURL: "https://form-f5d6e-default-rtdb.firebaseio.com",
+            projectId: "form-f5d6e",
+            storageBucket: "form-f5d6e.appspot.com",
+            messagingSenderId: "391345569169",
+            appId: "1:391345569169:web:68dc5bdb320cc39b072e30",
+            measurementId: "G-6NLYV6PCDL"
+        };
+
+        // Inicializa o banco
+        initializeApp(firebaseConfig);
+
+        // Conecta ao firestore 
+        const db = getFirestore();
+
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        // Associa o botão 
+        const logoutButton = document.querySelector("#logout");
+
+        const Name = document.querySelector("#username");
+        const Email = document.querySelector("#email");
+
+        // Detecta o usuário que se conectou 
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+
+                // Coleta o nome do usuário presente no banco 
+                onSnapshot(doc(db, "user", user.uid), (doc) => {
+                    Name.innerHTML = "Bem-vindo " + doc.data().nome;
+                });
+            } 
+        });
+
+        // Desconecta o usuário e redireciona para a página inicial 
+        logoutButton.addEventListener("click", e => {
+            signOut(auth);
+            window.location = "./index.html";
+        });
+
+    </script>
 </body>

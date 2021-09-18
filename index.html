@@ -49,7 +49,10 @@
     <script type="module">
         // Importando funções do firebase 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-        import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
+        import { getAuth, createUserWithEmailAndPassword, setPersistence, 
+            signInWithEmailAndPassword, browserSessionPersistence } 
+            from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
@@ -65,7 +68,14 @@
         // Inicializa o banco
         initializeApp(firebaseConfig);
 
+        // Conecta ao firestore 
+        const db = getFirestore();
+
+        // Inicializa o controle de autorização 
         const auth = getAuth();
+
+        // Permite com que as sessões permaneçam entre as páginas 
+        setPersistence(auth, browserSessionPersistence);
 
         // Associa os botões principais 
         const loginButton = document.querySelector("#signIn");
@@ -75,38 +85,41 @@
         loginButton.addEventListener("click", e => {
             signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
             .then((userCredential) => {
-                const user = userCredential.user;
 
-                window.open("./usuario.html","_self");
+                // Abre a página de usuário 
+                window.location = "./usuario.html";
+
             }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
 
                 setFormMessage(loginForm, "error", "Usuário ou senha incorretos");
 
-                console.log(errorCode);
-                console.log(errorMessage);
+                console.log(error.code);
+                console.log(error.message);
             });
         });
 
-        // Cadastrar Usuário 
+        // Cadastra novos usuários 
         createButton.addEventListener("click", e=> {
             createUserWithEmailAndPassword(auth, createEmail.value, createPassword.value)
             .then((userCredential) => {
-                const user = userCredential.user;
+
+                // Cria uma base de dados para o usuário 
+                let dado = doc(db, "user", userCredential.user.uid);
+                setDoc(dado, { nome: createUsername.value });
 
                 setFormMessage(createForm, "success", "Cadastro realizado com sucesso!");
 
                 console.log("Usuário Cadastrado Com Sucesso!");
+
             }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
 
                 setFormMessage(createForm, "error", "Dados inválidos");
                 
-                console.log(errorCode);
-                console.log(errorMessage);
+                console.log(error.code);
+                console.log(error.message);
             });
         });
+
+        
     </script>
 </body>

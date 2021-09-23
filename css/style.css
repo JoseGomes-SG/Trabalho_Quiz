@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+
 body {
     --color-primary: #0a5cff;
     --color-primary-dark: #000aff;
@@ -28,7 +30,7 @@ body {
 .container,
 .form__input,
 .form__button {
-    font: 500 1rem 'Quicksand', sans-serif;
+    font-family: 'Noto Sans', sans-serif;
 }
 
 .form--hidden {
@@ -100,7 +102,6 @@ body {
     font-size: 1.1rem;
     color: #ffffff;
     border: none;
-    border-radius: var(--border-radius);
     outline: none;
     cursor: pointer;
     background: var(--color-primary);

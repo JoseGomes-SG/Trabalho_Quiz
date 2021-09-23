@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@700&display=swap');
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+	font-size: 15px;
+}
+#cabecalho {
+	padding: 12px 0px;
+}
+.navbar-brand{
+	padding: 5px 15px;
+}

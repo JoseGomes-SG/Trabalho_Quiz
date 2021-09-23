@@ -87,7 +87,7 @@
             .then((userCredential) => {
 
                 // Abre a página de usuário 
-                window.location = "./usuario.html";
+                window.open("./usuario.html","_self");
 
             }).catch((error) => {
 
@@ -105,7 +105,7 @@
 
                 // Cria uma base de dados para o usuário 
                 let dado = doc(db, "user", userCredential.user.uid);
-                setDoc(dado, { nome: createUsername.value });
+                setDoc(dado, { nome: createUsername.value, email: createEmail.value });
 
                 setFormMessage(createForm, "success", "Cadastro realizado com sucesso!");
 

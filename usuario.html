@@ -1,25 +1,52 @@
 <!DOCTYPE html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Área do usuário</title>
-    <link rel="stylesheet" href="./css/style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Usuário</title>
+    <link rel="stylesheet" href="./css/user.css">
+
+    <!-- Bootstrap -->
+	<link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/estilos.css" rel="stylesheet">
+		
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap-5.0.1/js/bootstrap.min.js"></script>
+		
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 </head>
 <body>
-    <div class="container">
-        <div class="form" id="login">
-            <h1 id="username" class="form__title"></h1>
-            <h2 id="email" class="form__title"></h2>
-            <p>
-                Página do usuário ainda em contrução
-            </p>
-            <button id="logout" class="form__button">Sair</button>
+    <div class="navbar navbar-expand-md navbar-light bg-light" id="cabecalho">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="./index.html">Quiz</a>
+			</div>
+				
+			<div class="nav navbar-nav navbar-right ms-auto" id="menu-navegacao">
+                <ul class="nav navbar-nav navbar-right ms-auto" role="navigation">
+                    <li class="nav-item"><button type="button" class="btn btn-outline-primary" id="edit">Conta</a></li>
+                    <li class="nav-item"><button type="button" class="btn btn-outline-primary" id="logout">Sair</a></li>
+                </ul>
+			</div>
+		</div>
+
+        <div class="quiz-chart">
+
         </div>
-    </div>
+			
+	</div>
+
+    <script src="./js/contas.js"></script>
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
         import { getFirestore, doc, onSnapshot } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
-        import { getAuth,signOut,onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+        import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
@@ -41,28 +68,20 @@
         const auth = getAuth();
         const user = auth.currentUser;
 
-        // Associa o botão 
-        const logoutButton = document.querySelector("#logout");
-
-        const Name = document.querySelector("#username");
-        const Email = document.querySelector("#email");
-
         // Detecta o usuário que se conectou 
         onAuthStateChanged(auth, (user) => {
             if (user) {
-
-                // Coleta o nome do usuário presente no banco 
-                onSnapshot(doc(db, "user", user.uid), (doc) => {
-                    Name.innerHTML = "Bem-vindo " + doc.data().nome;
-                });
+                console.log("Usuário Conectado");
             } 
         });
 
+        var desloga = document.getElementById("logout");
+
         // Desconecta o usuário e redireciona para a página inicial 
-        logoutButton.addEventListener("click", e => {
+        desloga.onclick = function logout() {
             signOut(auth);
-            window.location = "./index.html";
-        });
+        window.open("./index.html","_Self");
+        }
 
     </script>
 </body>

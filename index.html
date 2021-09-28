@@ -37,7 +37,7 @@
                             <input type="password" id="password" class="form-control" placeholder="Senha">
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button id="signInButton" type="submit" class="col-12 btn btn-primary rounded-pill">Login</button>
+                            <button id="signInButton" class="col-12 btn btn-primary rounded-pill">Login</button>
                         </div>
                     </div>
                     <hr class="mt-4">
@@ -67,7 +67,7 @@
                             <input type="password" id="newPassword" class="form-control" placeholder="Senha">
                         </div>
                         <div class="d-flex justify-content-center">
-                            <button id="signUpButton" type="submit" class="col-12 btn btn-secondary rounded-pill">Cadastrar</button>
+                            <button id="signUpButton" class="col-12 btn btn-secondary rounded-pill">Cadastrar</button>
                         </div>
                     </div>
                     <hr class="mt-4">
@@ -114,13 +114,23 @@
         // Associa os botões principais 
         const loginButton = document.querySelector("#signInButton");
         const createButton = document.querySelector("#signUpButton");
-
+        
+        // Mesagens de erro 
         const loginMessage = document.querySelector("#signInMessage");
         const signUpMessage = document.querySelector("#signUpMessage");
+
+        // Formulario de login 
+        const email = document.querySelector("#email");
+        const password = document.querySelector("#password");
+
+        // Formulario de cadastro 
+        const newName = document.querySelector("#newName");
+        const newEmail = document.querySelector("#newEmail");
+        const newPassword = document.querySelector("#newPassword");
         
         // Faz login na conta do usuário 
         loginButton.addEventListener("click", e => {
-            signInWithEmailAndPassword(auth, $("#email").value, $("#password").value)
+            signInWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
 
                 // Abre a página de usuário 
@@ -136,12 +146,12 @@
 
         // Cadastra novos usuários 
         createButton.addEventListener("click", e=> {
-            createUserWithEmailAndPassword(auth, $("#newEmail").value, $("#newPassword").value)
+            createUserWithEmailAndPassword(auth, newEmail.value, newPassword.value)
             .then((userCredential) => {
 
                 // Cria uma base de dados para o usuário 
                 let dado = doc(db, "user", userCredential.user.uid);
-                setDoc(dado, { nome: $("#newName").value, email: $("#newEmail").value });
+                setDoc(dado, { nome: newName.value, email: newEmail.value });
 
                 signUpMessage.innerHTML = "<span style='color: green;'>Usuário cadastrado</span>";
                 console.log("Usuário Cadastrado Com Sucesso!");

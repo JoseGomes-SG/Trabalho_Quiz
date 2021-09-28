@@ -3,49 +3,83 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
     <title>Quiz</title>
-    <link rel="stylesheet" href="./css/style.css">
+
+    <!-- Bootstrap -->
+	<link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
+		
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap-5.0.1/js/bootstrap.min.js"></script>
+		
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
 </head>
-<body>
+<body class="bg-dark">
+
     <div class="container">
-        
-        <div class="form" id="login">
-            <h1 class="form__title">Login</h1>
-            <div class="form__message form__message--error"></div>
-            <div class="form__input-group">
-                <input id="loginEmail" type="text" class="form__input" autofocus placeholder="Email">
-                <div class="form__input-error-message"></div>
+        <div id="signIn" class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="login-form bg-light mt-4 p-4">
+                    <div class="row g-4">
+                        <h4 class="text-center">Login</h4>
+                        <label id="signInMessage"></label>
+                        <div class="col-12">
+                            <label>Login</label>
+                            <input type="text" id="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="col-12">
+                            <label>Senha</label>
+                            <input type="password" id="password" class="form-control" placeholder="Senha">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button id="signInButton" type="submit" class="col-12 btn btn-primary rounded-pill">Login</button>
+                        </div>
+                    </div>
+                    <hr class="mt-4">
+                    <div class="col-12">
+                        <p class="text-center mb-0">Não possui uma conta? <a id="signUpForm" href="#">Cadastrar-se</a></p>
+                    </div>
+                </div>
             </div>
-            <div class="form__input-group">
-                <input id="loginPassword" type="password" class="form__input" autofocus placeholder="Senha">
-                <div class="form__input-error-message"></div>
-            </div>
-            <button id="signIn" class="form__button">Entrar</button>
-            <p class="form__text">
-                <a class="form__link" href="./" id="linkCreateAccount">Não possui uma conta? Criar conta</a>
-            </p>
         </div>
 
-        <div class="form form--hidden" id="createAccount">
-            <h1 class="form__title">Cadastro</h1>
-            <div class="form__message form__message--error"></div>
-            <div class="form__input-group">
-                <input id="createUsername" type="text" class="form__input" autofocus placeholder="Nome">
-                <div class="form__input-error-message"></div>
+        <div id="signUp" class="row">
+            <div class="col-md-4 offset-md-4">
+                <div class="login-form bg-light mt-4 p-4">
+                    <div class="row g-4">
+                        <h4 class="text-center">Cadastrar-se</h4>
+                        <label id="signUpMessage"></label>
+                        <div class="col-12">
+                            <label>Nome</label>
+                            <input type="text" id="newName" class="form-control" placeholder="Nome">
+                        </div>
+                        <div class="col-12">
+                            <label>Login</label>
+                            <input type="text" id="newEmail" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="col-12">
+                            <label>Senha</label>
+                            <input type="password" id="newPassword" class="form-control" placeholder="Senha">
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <button id="signUpButton" type="submit" class="col-12 btn btn-secondary rounded-pill">Cadastrar</button>
+                        </div>
+                    </div>
+                    <hr class="mt-4">
+                    <div class="col-12">
+                        <p class="text-center mb-0">Já Possui conta? <a id="signInForm" href="#">Entrar</a></p>
+                    </div>
+                </div>
             </div>
-            <div class="form__input-group">
-                <input id="createEmail" type="text" class="form__input" autofocus placeholder="Email">
-                <div class="form__input-error-message"></div>
-            </div>
-            <div class="form__input-group">
-                <input id="createPassword" type="password" class="form__input" autofocus placeholder="Senha">
-                <div class="form__input-error-message"></div>
-            </div>
-            <button id="signUp" class="form__button">Cadastrar-se</button>
-            <p class="form__text">
-                <a class="form__link" href="./" id="linkLogin">Já possui uma conta? Entrar</a>
-            </p>
         </div>
-    <script src="./js/index.js"></script>
+
+    </div>
+
     <script type="module">
         // Importando funções do firebase 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
@@ -78,12 +112,15 @@
         setPersistence(auth, browserSessionPersistence);
 
         // Associa os botões principais 
-        const loginButton = document.querySelector("#signIn");
-        const createButton = document.querySelector("#signUp");
+        const loginButton = document.querySelector("#signInButton");
+        const createButton = document.querySelector("#signUpButton");
+
+        const loginMessage = document.querySelector("#signInMessage");
+        const signUpMessage = document.querySelector("#signUpMessage");
         
         // Faz login na conta do usuário 
         loginButton.addEventListener("click", e => {
-            signInWithEmailAndPassword(auth, loginEmail.value, loginPassword.value)
+            signInWithEmailAndPassword(auth, $("#email").value, $("#password").value)
             .then((userCredential) => {
 
                 // Abre a página de usuário 
@@ -91,8 +128,7 @@
 
             }).catch((error) => {
 
-                setFormMessage(loginForm, "error", "Usuário ou senha incorretos");
-
+                loginMessage.innerHTML = "<span style='color: red;'>Dados inválidos</span>";
                 console.log(error.code);
                 console.log(error.message);
             });
@@ -100,26 +136,23 @@
 
         // Cadastra novos usuários 
         createButton.addEventListener("click", e=> {
-            createUserWithEmailAndPassword(auth, createEmail.value, createPassword.value)
+            createUserWithEmailAndPassword(auth, $("#newEmail").value, $("#newPassword").value)
             .then((userCredential) => {
 
                 // Cria uma base de dados para o usuário 
                 let dado = doc(db, "user", userCredential.user.uid);
-                setDoc(dado, { nome: createUsername.value, email: createEmail.value });
+                setDoc(dado, { nome: $("#newName").value, email: $("#newEmail").value });
 
-                setFormMessage(createForm, "success", "Cadastro realizado com sucesso!");
-
+                signUpMessage.innerHTML = "<span style='color: green;'>Usuário cadastrado</span>";
                 console.log("Usuário Cadastrado Com Sucesso!");
 
             }).catch((error) => {
-
-                setFormMessage(createForm, "error", "Dados inválidos");
                 
+                signUpMessage.innerHTML = "<span style='color: red;'>Dados inválidos</span>";
                 console.log(error.code);
                 console.log(error.message);
             });
         });
-
-        
     </script>
+    <script src="./js/index.js"></script>
 </body>

@@ -8,7 +8,6 @@
 
     <!-- Bootstrap -->
 	<link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
-	<link href="css/estilos.css" rel="stylesheet">
 		
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
@@ -22,10 +21,11 @@
 	<![endif]-->
 </head>
 <body>
+    
     <div class="navbar navbar-expand-md navbar-light bg-light" id="cabecalho">
 		<div class="container">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="./index.html">Quiz</a>
+				<a class="navbar-brand" href="./usuario.html">Quiz</a>
 			</div>
 				
 			<div class="nav navbar-nav navbar-right ms-auto" id="menu-navegacao">
@@ -35,12 +35,19 @@
                 </ul>
 			</div>
 		</div>
-
-        <div class="quiz-chart">
-
-        </div>
 			
 	</div>
+
+    <div id="quiz-area" class="container bg-dark">
+        <div class="row">
+            <div class="col-sm-10 offset-sm-1 text-center">
+                <h1 class="display-3">Espaço do Quiz</h1>
+                <div class="">
+                    <a href="#" class="btn btn-primary rounded-pill">Iniciar Quiz</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="./js/contas.js"></script>
     <script type="module">

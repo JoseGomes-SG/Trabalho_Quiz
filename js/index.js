@@ -1,45 +1,43 @@
-// Associa aos formulários 
-const loginForm = document.querySelector("#login");
-const createForm = document.querySelector("#createAccount");
+const signUp = document.getElementById("signUp");
+const signIn = document.getElementById("signIn");
 
-function setFormMessage(formElement, type, message) {
-    const messageElement = formElement.querySelector(".form__message");
+// Estabelece a visibididade dos formulários 
+signUp.style.display = "none";
+signIn.style.display  = "block";
 
-    messageElement.textContent = message;
-    messageElement.classList.remove("form__message--success", "form__message--error");
-    messageElement.classList.add(`form__message--${type}`);
+// Mostra o formulário de cadastro 
+function signUpForm() {
+    signUp.style.display = "block";
+    signIn.style.display  = "none";
 }
 
-function setInputError(inputElement, message) {
-    inputElement.classList.add("form__input--error");
-    inputElement.parentElement.querySelector(".form__input-error-message").textContent = message;
+// Mostra o formulário de login 
+function signInForm() {
+    signUp.style.display = "none";
+    signIn.style.display  = "block";
 }
 
-function clearInputError(inputElement) {
-    inputElement.classList.remove("form__input--error");
-    inputElement.parentElement.querySelector(".form__input-error-message").textContent = "";
-}
+// Valida o formulário de cadastro 
+function validateSignUpForm() {
+    
+} 
 
-document.addEventListener("DOMContentLoaded", () => {
+// Valida o formulário de login 
+function validateSignInForm() {
+    
+} 
 
-    // Mostra o formulário de cadastro 
-    document.querySelector("#linkCreateAccount").addEventListener("click", e => {
-        e.preventDefault();
-        loginForm.classList.add("form--hidden");
-        createForm.classList.remove("form--hidden");
-    });
+$('#signInForm').click( function(e) {
+        e.preventDefault(); 
+        signInForm();
+        return false; 
+    } 
+);
 
-    // Mostra o formulário de login 
-    document.querySelector("#linkLogin").addEventListener("click", e => {
-        e.preventDefault();
-        loginForm.classList.remove("form--hidden");
-        createForm.classList.add("form--hidden");
-    });
+$('#signUpForm').click( function(e) {
+        e.preventDefault(); 
+        signUpForm();
+        return false; 
+    } 
+);
 
-    // Remove as mensagens de erro 
-    document.querySelectorAll(".form__input").forEach(inputElement => {
-        inputElement.addEventListener("input", e => {
-            clearInputError(inputElement);
-        });
-    });
-});

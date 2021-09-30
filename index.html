@@ -132,12 +132,10 @@
         loginButton.addEventListener("click", e => {
             signInWithEmailAndPassword(auth, email.value, password.value)
             .then((userCredential) => {
-
+                
                 // Abre a página de usuário 
                 window.open("./usuario.html","_self");
-
             }).catch((error) => {
-
                 loginMessage.innerHTML = "<span style='color: red;'>Dados inválidos</span>";
                 console.log(error.code);
                 console.log(error.message);

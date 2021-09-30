@@ -17,16 +17,6 @@ function signInForm() {
     signIn.style.display  = "block";
 }
 
-// Valida o formulário de cadastro 
-function validateSignUpForm() {
-    
-} 
-
-// Valida o formulário de login 
-function validateSignInForm() {
-    
-} 
-
 $('#signInForm').click( function(e) {
         e.preventDefault(); 
         signInForm();

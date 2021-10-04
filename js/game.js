@@ -61,7 +61,7 @@ choices.forEach(choice => {
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset["option"];
 
-        let classToApply = selectedAnswer == currentQuestion.resposta ? "correct" : "incorrect";
+        var classToApply = selectedAnswer == currentQuestion.resposta ? "correct" : "incorrect";
 
         // Muda a cor das alternativas 
         selectedChoice.parentElement.classList.add(classToApply);

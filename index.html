@@ -3,14 +3,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Área Principal Temporária</title>
-    <link rel="stylesheet" href="./css/user.css">
-    <link rel="stylesheet" href="./css/quiz.css">
+    <title>Área do Usuário</title>
+    <link rel="stylesheet" href="./css/style.css">
 
     <!-- Bootstrap -->
 	<link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		
+	
 	<!-- jQuery -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 	<script src="bootstrap-5.0.1/js/bootstrap.min.js"></script>
@@ -22,40 +21,15 @@
 </head>
 <body>
 
-    <div id="quiz-area" class="container">
-
-        <div id="quiz-game">
-            <div class="quiz-area">
-                <div id="hud">
-                    <div class="hud-item">
-                        <p id="progressText" class="hud-prefix">Questão</p>
-                    </div>
-                </div>
-                <h1 id="question">Qual é a resposta correta?</h1>
-                <div class="choice-container">
-                    <p class="choice-prefix">A)</p>
-                    <p class="choice-text" data-option="A">Resposta 1</p>
-                </div>
-                <div class="choice-container">
-                    <p class="choice-prefix">B)</p>
-                    <p class="choice-text" data-option="B">Resposta 2</p>
-                </div>
-                <div class="choice-container">
-                    <p class="choice-prefix">C)</p>
-                    <p class="choice-text" data-option="C">Resposta 3</p>
-                </div>
-                <div class="choice-container">
-                    <p class="choice-prefix">D)</p>
-                    <p class="choice-text" data-option="D">Resposta 4</p>
-                </div>
-                <div class="choice-container">
-                    <p class="choice-prefix">E)</p>
-                    <p class="choice-text" data-option="E">Resposta 5</p>
-                </div>
+    <div class="container">
+        <div class="container">
+            <div id="home" class="flex-column flex-center">
+                <h1>QUIZ POSCOMP</h1>
+                <a href="game.html" class="btn btn-primary">Iniciar Quiz</a>
             </div>
         </div>
-        
     </div>
 
-    <script src="./js/game.js"></script>
+    <script src="./js/contas.js"></script>
+    <script src="./js/user.js"></script>
 </body>

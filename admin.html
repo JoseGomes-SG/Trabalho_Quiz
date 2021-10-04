@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Quiz</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <link rel="stylesheet" href="./css/user.css">
 
     <!-- Bootstrap -->
 	<link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
@@ -16,76 +18,64 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
 </head>
-<body class="bg-dark">
+<body>
+    <div class="navbar navbar-expand-md navbar-light bg-light" id="cabecalho">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="./usuario.html">Quiz</a>
+			</div>
+				
+			<div class="nav navbar-nav navbar-right ms-auto">
+                <ul class="nav navbar-nav navbar-right ms-auto" role="navigation">
+                    <li id="edit" class="nav-item">Conta</li>
+                    <li id="logout" class="nav-item">Sair</li>
+                </ul>
+			</div>
+		</div>
+	</div>
 
-    <div class="container">
-        <div id="signIn" class="row">
-            <div class="col-md-4 offset-md-4">
-                <div class="login-form bg-light mt-4 p-4">
-                    <div class="row g-4">
-                        <h4 class="text-center">Login</h4>
-                        <label id="signInMessage" class="text-center"></label>
-                        <div class="col-12">
-                            <label>Login</label>
-                            <input type="text" id="email" class="form-control" placeholder="Email">
+    <div class="container rounded bg-white mt-5 mb-5">
+        <div class="row">
+            <div class="col-md-3 border-right">
+                <div class="d-flex flex-column align-items-center text-center p-3 py-5">
+                    <img class="rounded-circle mt-5" width="150px" 
+                    src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+                    <span id="username" class="font-weight-bold"></span>
+                    <span id="phone" class="text-black-50"></span>
+                    <span id="email" class="text-black-50"></span>
+                    <span> </span>
+                </div>
+            </div>
+            <div class="col-md-5 border-right">
+                <div class="p-3 py-5">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h4 class="text-right">Editar dados</h4>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-12">
+                            <label class="labels">Nome</label>
+                            <input id="newUsername" type="text" class="form-control" placeholder="Nome" value="">
                         </div>
-                        <div class="col-12">
-                            <label>Senha</label>
-                            <input type="password" id="password" class="form-control" placeholder="Senha">
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button id="signInButton" class="col-12 btn btn-primary rounded-pill">Login</button>
+                        <div class="col-md-12">
+                            <label class="labels">Email</label>
+                            <input id="newEmail" type="text" class="form-control" placeholder="Email" value="">
                         </div>
                     </div>
-                    <hr class="mt-4">
-                    <div class="col-12">
-                        <p class="text-center mb-0">Não possui uma conta? <a id="signUpForm" href="#">Cadastrar-se</a></p>
+                    <div class="mt-5 text-right">
+                        <button id="updateAccount" class="btn btn-primary profile-button">Atualizar</button>
+                        <button id="deleteAccount" class="btn btn-danger profile-button">Excluir Conta</button>
                     </div>
                 </div>
             </div>
         </div>
-
-        <div id="signUp" class="row">
-            <div class="col-md-4 offset-md-4">
-                <div class="login-form bg-light mt-4 p-4">
-                    <div class="row g-4">
-                        <h4 class="text-center">Cadastrar-se</h4>
-                        <label id="signUpMessage" class="text-center"></label>
-                        <div class="col-12">
-                            <label>Nome</label>
-                            <input type="text" id="newName" class="form-control" placeholder="Nome">
-                        </div>
-                        <div class="col-12">
-                            <label>Login</label>
-                            <input type="text" id="newEmail" class="form-control" placeholder="Email">
-                        </div>
-                        <div class="col-12">
-                            <label>Senha</label>
-                            <input type="password" id="newPassword" class="form-control" placeholder="Senha">
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button id="signUpButton" class="col-12 btn btn-secondary rounded-pill">Cadastrar</button>
-                        </div>
-                    </div>
-                    <hr class="mt-4">
-                    <div class="col-12">
-                        <p class="text-center mb-0">Já Possui conta? <a id="signInForm" href="#">Entrar</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
     </div>
 
+    <script src="./js/contas.js"></script>
     <script type="module">
-        // Importando funções do firebase 
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
-        import { getAuth, createUserWithEmailAndPassword, setPersistence, 
-            signInWithEmailAndPassword, browserSessionPersistence } 
-            from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
+        import { getFirestore, doc, updateDoc , onSnapshot } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
+        import { getAuth, signOut ,onAuthStateChanged, deleteUser } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
@@ -97,65 +87,56 @@
             appId: "1:391345569169:web:68dc5bdb320cc39b072e30",
             measurementId: "G-6NLYV6PCDL"
         };
-      
+
         // Inicializa o banco
         initializeApp(firebaseConfig);
 
-        // Conecta ao banco de dados 
-        const db = getDatabase();
+        // Conecta ao firestore 
+        const db = getFirestore();
 
-        // Inicializa o controle de autorização 
         const auth = getAuth();
 
-        // Permite com que as sessões permaneçam entre as páginas 
-        setPersistence(auth, browserSessionPersistence);
+        const Name = document.querySelector("#username");
+        const Email = document.querySelector("#email");
 
-        // Associa os botões de login e cadastro 
-        const loginButton = document.querySelector("#signInButton");
-        const createButton = document.querySelector("#signUpButton");
-        
-        // Mesagens de erro 
-        const loginMessage = document.querySelector("#signInMessage");
-        const signUpMessage = document.querySelector("#signUpMessage");
-
-        // Formulario de login 
-        const email = document.querySelector("#email");
-        const password = document.querySelector("#password");
-
-        // Formulario de cadastro 
-        const newName = document.querySelector("#newName");
+        const newName = document.querySelector("#newUsername");
         const newEmail = document.querySelector("#newEmail");
-        const newPassword = document.querySelector("#newPassword");
-        
-        // Faz login na conta do usuário 
-        loginButton.addEventListener("click", e => {
-            signInWithEmailAndPassword(auth, email.value, password.value)
-            .then((userCredential) => {
-                // Abre a página de usuário 
-                window.open("./usuario.html","_self");
-            }).catch((error) => {
-                loginMessage.innerHTML = "<span style='color: red;'>Dados inválidos</span>";
-            });
+
+        const deleteAccount = document.getElementById("deleteAccount");
+        const updateAccount = document.getElementById("updateAccount");
+        const logoutAccount = document.getElementById("logout");
+
+        // Detecta o usuário que se conectou 
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                // Coleta o nome do usuário presente no banco 
+                onSnapshot(doc(db, "user", user.uid), (doc) => {
+                    Name.innerHTML = doc.data().nome != "" ? doc.data().nome : "***";
+                    Email.innerHTML = doc.data().email != "" ? doc.data().email : "***";
+                });
+            } 
         });
 
-        // Cadastra novos usuários 
-        createButton.addEventListener("click", e=> {
-            createUserWithEmailAndPassword(auth, newEmail.value, newPassword.value)
-            .then((userCredential) => {
-                
-                // Cria uma base de dados para o usuário 
-                set(ref(db ,"usuario/" + userCredential.user.uid), {
-                    nome: newName.value,
-                    email: newEmail.value,
-                });
+        // Atualiza informações do usuário 
+        updateAccount.onclick = function(){
+            const con = doc(db, "user", auth.currentUser.uid);
+            updateDoc(con,{nome: newName.value , email: newEmail.value});
+        }
 
-                signUpMessage.innerHTML = "<span style='color: green;'>Usuário cadastrado</span>";
-
+        // Exclui usuário 
+        deleteAccount.onclick = function (){
+            deleteUser(auth.currentUser).then(() => {
+                window.open("./index.html","_self");
             }).catch((error) => {
                 console.log(error);
-                signUpMessage.innerHTML = "<span style='color: red;'>Dados inválidos</span>";
             });
-        });
+        }
+
+        // Desconecta o usuário e redireciona para a página inicial 
+        logoutAccount.onclick = function () {
+            signOut(auth);
+            window.open("./index.html","_self");
+        }
+        
     </script>
-    <script src="./js/index.js"></script>
 </body>

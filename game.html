@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Do Quiz</title>
+    <link rel="stylesheet" href="./css/quiz.css">
+
+    <!-- Bootstrap -->
+    <link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="bootstrap-5.0.1/js/bootstrap.min.js"></script>
+
+    <!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+
+<body>
+
+    <div id="quiz-area" class="container">
+
+        <div id="quiz-game">
+            <div id="hud">
+                <div class="hud-item">
+                    <p id="progressText" class="hud-prefix font-weight-bold">Questão</p>
+                </div>
+            </div>
+            <h2 class="question">Qual é a resposta correta?</h2>
+            <div class="choice-container">
+                <p class="choice-prefix">A)</p>
+                <p class="choice-text" data-option="A">Resposta 1</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-prefix">B)</p>
+                <p class="choice-text" data-option="B">Resposta 2</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-prefix">C)</p>
+                <p class="choice-text" data-option="C">Resposta 3</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-prefix">D)</p>
+                <p class="choice-text" data-option="D">Resposta 4</p>
+            </div>
+            <div class="choice-container">
+                <p class="choice-prefix">E)</p>
+                <p class="choice-text" data-option="E">Resposta 5</p>
+            </div>
+        </div>
+
+        <div id="quiz-results">
+            <h2 style="font-weight: bold;">Resultados </h2>
+            <br>
+        </div>
+
+    </div>
+    <script src="./js/game.js"></script>
+</body>

@@ -1,33 +1,31 @@
-window.sessionStorage.setItem("quizCode","2018/questao");
-const quizCode = window.sessionStorage.getItem("quizCode");
+// Variáveis referentes ao quiz 
+const quizResults = document.querySelector("#quiz-results");
+const quizArea = document.querySelector("#quiz-game");
 
-// Faz um Array de opçoes 
-const question = document.querySelector("#question");
+// Relacionando as variáveis do formulário 
 const choices = Array.from(document.querySelectorAll(".choice-text"));
+const question = document.querySelector(".question");
 const progressText = document.querySelector("#progressText");
 
-// Array onde as questões serão armazenadas 
+// Esconde a tela de revisão
+quizResults.style.display = "none";
+
+// Variáveis referentes a lógica do quiz 
 const questions = [];
 let acceptingAnswers = true;
 let currentQuestion = {}
 let questionCounter = 0;
 let avaliableQuestions = [];
-var score;
 
-// Recebe as questões do banco de dados 
+// Coleta as questões do banco 
 const Http = new XMLHttpRequest();
-const url = "https://form-f5d6e-default-rtdb.firebaseio.com/provas/" + quizCode + ".json";
+const url = "https://form-f5d6e-default-rtdb.firebaseio.com/provas/2018/questao.json";
 Http.open("GET", url);
 Http.send();
-
-// Pontuações 
-const SCORE_POINTS = 100;
-const MAX_QUESTIONS = 6;
 
 // Iniciar Quiz 
 var startGame = () => {
     questionCounter = 0;
-    score = 0;
     avaliableQuestions = [...questions];
     getNewQuestion();
 }
@@ -35,12 +33,11 @@ var startGame = () => {
 // Atualiza questões 
 var getNewQuestion = () => {
     if (avaliableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
-        console.log("A sua pontuação foi de " + score + " pontos");
-        return;
+        return showReview();
     }
 
     questionCounter++;
-    progressText.innerHTML = "Questão " + questionCounter + " de " + MAX_QUESTIONS;
+    progressText.innerHTML = "Questão " + questionCounter;
 
     const questionsIndex = Math.floor(Math.random() * avaliableQuestions.length);
     currentQuestion = avaliableQuestions[questionsIndex];
@@ -66,12 +63,12 @@ choices.forEach(choice => {
 
         let classToApply = selectedAnswer == currentQuestion.resposta ? "correct" : "incorrect";
 
-        if (classToApply === "correct") {
-            incrementScore(SCORE_POINTS);
-        }
-
         // Muda a cor das alternativas 
         selectedChoice.parentElement.classList.add(classToApply);
+
+        // Coloca na review 
+        updateResults(selectedAnswer,classToApply);
+
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
             getNewQuestion();
@@ -79,9 +76,23 @@ choices.forEach(choice => {
     });
 })
 
-// Aumenta a pontuação 
-var incrementScore = num => {
-    score += num;
+var updateResults = function(selectedChoice,isCorrect) {
+    quizResults.innerHTML += "<h2 class='question' style='font-weight:bold;'>Questão " + questionCounter +" </h2>";
+    quizResults.innerHTML += "<hr>";
+    quizResults.innerHTML += "<p class='question '>" + currentQuestion.enunciado +" </p>";
+    if (isCorrect === "correct"){
+        quizResults.innerHTML += "<p class='choice-text incorrect'>" 
+        + currentQuestion["option" + selectedChoice] + "</p>";
+    }
+    quizResults.innerHTML += "<p class='choice-text correct'>" 
+    + currentQuestion["option" + currentQuestion.resposta] + "</p>";
+    quizResults.innerHTML += "<br>";
+}
+
+// Mostra os resultados do teste 
+var showReview = function(){
+    quizArea.style.display = "none";
+    quizResults.style.display = "block";
 }
 
 // Relaciona as questões as variáveis 
@@ -100,6 +111,7 @@ Http.onreadystatechange = function () {
                 resposta: values.resposta
             });
         });
+        MAX_QUESTIONS = questions.length;
         return startGame();
     }
 }

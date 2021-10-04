@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área do Usuário</title>
+    <link rel="stylesheet" href="./css/user.css">
+
+    <!-- Bootstrap -->
+	<link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		
+	<!-- jQuery -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="bootstrap-5.0.1/js/bootstrap.min.js"></script>
+		
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+</head>
+<body>
+    
+    <div class="navbar navbar-expand-md navbar-dark bg-dark" id="cabecalho">
+		<div class="container">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="./usuario.html">Quiz</a>
+			</div>
+				
+			<div class="nav navbar-nav navbar-right ms-auto">
+                <ul class="nav navbar-nav navbar-right ms-auto" role="navigation">
+                    <li id="edit" class="nav-item">Conta</li>
+                    <li id="logout" class="nav-item">Sair</li>
+                </ul>
+			</div>
+		</div>
+	</div>
+
+    <div class="container">
+        <div id="dashboard-area">
+            <h1 class="text-center">Temas Disponíveis</h1>
+            <div id="dashboard-menu">
+                <div id="cardboard" class="row"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="./js/contas.js"></script>
+    <script src="./js/user.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
+            authDomain: "form-f5d6e.firebaseapp.com",
+            databaseURL: "https://form-f5d6e-default-rtdb.firebaseio.com",
+            projectId: "form-f5d6e",
+            storageBucket: "form-f5d6e.appspot.com",
+            messagingSenderId: "391345569169",
+            appId: "1:391345569169:web:68dc5bdb320cc39b072e30",
+            measurementId: "G-6NLYV6PCDL"
+        };
+
+        // Inicializa o banco
+        initializeApp(firebaseConfig);
+
+        // Conecta ao banco de dados 
+        const db = getDatabase();
+
+        window.sessionStorage.setItem("quizCode", childSnapshot.key);
+        
+        // Pega as questões de cada seção 
+        let lists = ref(db, "provas");
+
+        // Imprime os cartões 
+        onValue(lists, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+
+                let cardQuiz = "";
+                cardQuiz += "<div class='col-4'>";
+                cardQuiz += "<div class='card mb-4'>";
+                cardQuiz += "<h5 class='card-header'> Questões Poscomp " + childSnapshot.key + "</h5>";
+                cardQuiz += "<div class='card-body'>";
+                cardQuiz += "<p class='card-text text-justify'>" + childSnapshot.val().descricao + "</p>";
+                cardQuiz += "<input type='button' class='btn btn-primary pull-right' value='Iniciar Quiz'>";
+                cardQuiz += "</div>";
+                cardQuiz += "</div>";
+                cardQuiz += "</div>";
+
+                document.getElementById("cardboard").innerHTML += cardQuiz;
+
+                });
+            });
+
+    </script>
+</body>

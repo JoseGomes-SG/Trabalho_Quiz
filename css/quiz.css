@@ -1,14 +1,15 @@
-body {
-    color: #fff;
-}
-
 #quiz-game {
     display: block;
     width: 100%;
 }
 
+#question {
+    font-size: 1.2rem;
+}
+
 .choice-container {
     display: flex;
+    color: #fff;
     width: 100%;
     margin-bottom: 5px;
     border-radius: 5px;
@@ -26,7 +27,6 @@ body {
 
 .choice-prefix {
     padding: 1rem 1rem;
-    color: #fff;
 }
 
 .choice-text {

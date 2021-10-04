@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta charset="utf-8">
-    <title>Quiz</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Área Principal Temporária</title>
+    <link rel="stylesheet" href="./css/user.css">
+    <link rel="stylesheet" href="./css/quiz.css">
 
     <!-- Bootstrap -->
 	<link href="bootstrap-5.0.1/css/bootstrap.min.css" rel="stylesheet">
-		
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 		
 	<!-- jQuery -->
@@ -17,150 +19,156 @@
 		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
-
 </head>
-<body class="bg-dark">
+<body>
 
-    <div class="container">
-        <div id="signIn" class="row">
-            <div class="col-md-4 offset-md-4">
-                <div class="login-form bg-light mt-4 p-4">
-                    <div class="row g-4">
-                        <h4 class="text-center">Login</h4>
-                        <label id="signInMessage"></label>
-                        <div class="col-12">
-                            <label>Login</label>
-                            <input type="text" id="email" class="form-control" placeholder="Email">
-                        </div>
-                        <div class="col-12">
-                            <label>Senha</label>
-                            <input type="password" id="password" class="form-control" placeholder="Senha">
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button id="signInButton" class="col-12 btn btn-primary rounded-pill">Login</button>
-                        </div>
+    <div id="quiz-area" class="container">
+
+        <div id="quiz-game">
+            <div class="quiz-area">
+                <div id="hud">
+                    <div class="hud-item">
+                        <p id="progressText" class="hud-prefix">Questão</p>
                     </div>
-                    <hr class="mt-4">
-                    <div class="col-12">
-                        <p class="text-center mb-0">Não possui uma conta? <a id="signUpForm" href="#">Cadastrar-se</a></p>
-                    </div>
+                </div>
+                <h1 id="question">Qual é a resposta correta?</h1>
+                <div class="choice-container">
+                    <p class="choice-prefix">A)</p>
+                    <p class="choice-text" data-option="A">Resposta 1</p>
+                </div>
+                <div class="choice-container">
+                    <p class="choice-prefix">B)</p>
+                    <p class="choice-text" data-option="B">Resposta 2</p>
+                </div>
+                <div class="choice-container">
+                    <p class="choice-prefix">C)</p>
+                    <p class="choice-text" data-option="C">Resposta 3</p>
+                </div>
+                <div class="choice-container">
+                    <p class="choice-prefix">D)</p>
+                    <p class="choice-text" data-option="D">Resposta 4</p>
+                </div>
+                <div class="choice-container">
+                    <p class="choice-prefix">E)</p>
+                    <p class="choice-text" data-option="E">Resposta 5</p>
                 </div>
             </div>
         </div>
-
-        <div id="signUp" class="row">
-            <div class="col-md-4 offset-md-4">
-                <div class="login-form bg-light mt-4 p-4">
-                    <div class="row g-4">
-                        <h4 class="text-center">Cadastrar-se</h4>
-                        <label id="signUpMessage"></label>
-                        <div class="col-12">
-                            <label>Nome</label>
-                            <input type="text" id="newName" class="form-control" placeholder="Nome">
-                        </div>
-                        <div class="col-12">
-                            <label>Login</label>
-                            <input type="text" id="newEmail" class="form-control" placeholder="Email">
-                        </div>
-                        <div class="col-12">
-                            <label>Senha</label>
-                            <input type="password" id="newPassword" class="form-control" placeholder="Senha">
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button id="signUpButton" class="col-12 btn btn-secondary rounded-pill">Cadastrar</button>
-                        </div>
-                    </div>
-                    <hr class="mt-4">
-                    <div class="col-12">
-                        <p class="text-center mb-0">Já Possui conta? <a id="signInForm" href="#">Entrar</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+        
     </div>
 
     <script type="module">
-        // Importando funções do firebase 
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-app.js";
-        import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/9.0.2/firebase-firestore.js";
-        import { getAuth, createUserWithEmailAndPassword, setPersistence, 
-            signInWithEmailAndPassword, browserSessionPersistence } 
-            from "https://www.gstatic.com/firebasejs/9.0.2/firebase-auth.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
-            authDomain: "form-f5d6e.firebaseapp.com",
-            databaseURL: "https://form-f5d6e-default-rtdb.firebaseio.com",
-            projectId: "form-f5d6e",
-            storageBucket: "form-f5d6e.appspot.com",
-            messagingSenderId: "391345569169",
-            appId: "1:391345569169:web:68dc5bdb320cc39b072e30",
-            measurementId: "G-6NLYV6PCDL"
-        };
-      
-        // Inicializa o banco
-        initializeApp(firebaseConfig);
+        window.sessionStorage.setItem("quizCode","2018/questao");
+        const quizCode = window.sessionStorage.getItem("quizCode");
 
-        // Conecta ao firestore 
-        const db = getFirestore();
+        // Faz um Array de opçoes 
+        const question = document.querySelector("#question");
+        const choices = Array.from(document.querySelectorAll(".choice-text"));
+        const progressText = document.querySelector("#progressText");
 
-        // Inicializa o controle de autorização 
-        const auth = getAuth();
+        // Array onde as questões serão armazenadas 
+        const questions = [];
+        let acceptingAnswers = true;
+        let currentQuestion = {}
+        let questionCounter = 0;
+        let avaliableQuestions = [];
+        var score;
 
-        // Permite com que as sessões permaneçam entre as páginas 
-        setPersistence(auth, browserSessionPersistence);
+        const Http = new XMLHttpRequest();
+        const url= "https://form-f5d6e-default-rtdb.firebaseio.com/provas/" + quizCode +".json";
+        Http.open("GET", url);
+        Http.send();
 
-        // Associa os botões principais 
-        const loginButton = document.querySelector("#signInButton");
-        const createButton = document.querySelector("#signUpButton");
-        
-        // Mesagens de erro 
-        const loginMessage = document.querySelector("#signInMessage");
-        const signUpMessage = document.querySelector("#signUpMessage");
+        Http.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200){
+                let archieve = JSON.parse(Http.responseText);
+                Object.keys(archieve).forEach(function(key) {
+                    let values = archieve[key];
+                    questions.push({
+                        enunciado: values.enunciado,
+                        optionA: values.alternativas["A"], 
+                        optionB: values.alternativas["B"],
+                        optionC: values.alternativas["C"],
+                        optionD: values.alternativas["D"],
+                        optionE: values.alternativas["E"],
+                        resposta: values.resposta
+                    });
+                });
+                return console.log(questions);
+            }
+        }
 
-        // Formulario de login 
-        const email = document.querySelector("#email");
-        const password = document.querySelector("#password");
+        // Pontuações 
+        const SCORE_POINTS = 100;
+        const MAX_QUESTIONS = 6;
 
-        // Formulario de cadastro 
-        const newName = document.querySelector("#newName");
-        const newEmail = document.querySelector("#newEmail");
-        const newPassword = document.querySelector("#newPassword");
-        
-        // Faz login na conta do usuário 
-        loginButton.addEventListener("click", e => {
-            signInWithEmailAndPassword(auth, email.value, password.value)
-            .then((userCredential) => {
-                
-                // Abre a página de usuário 
-                window.open("./usuario.html","_self");
-            }).catch((error) => {
-                loginMessage.innerHTML = "<span style='color: red;'>Dados inválidos</span>";
-                console.log(error.code);
-                console.log(error.message);
+        // Iniciar Quiz 
+        var startGame = () => {
+            questionCounter = 0;
+            score = 0;
+            avaliableQuestions = [...questions];
+            getNewQuestion();
+        }
+
+        // Atualiza questões 
+        var getNewQuestion = () => {
+            if (avaliableQuestions.length === 0 || questionCounter > MAX_QUESTIONS){
+                console.log("A sua pontuação foi de " + score + " pontos");
+                return;
+            }
+
+            questionCounter++;
+            progressText.innerHTML = "Questão " + questionCounter + " de " + MAX_QUESTIONS;
+
+            const questionsIndex = Math.floor(Math.random() * avaliableQuestions.length);
+            currentQuestion = avaliableQuestions[questionsIndex];
+            question.innerHTML = currentQuestion.enunciado;
+
+            choices.forEach(choice => {
+                const option = choice.dataset["option"];
+                choice.innerText = currentQuestion["option" + option];
             });
-        });
 
-        // Cadastra novos usuários 
-        createButton.addEventListener("click", e=> {
-            createUserWithEmailAndPassword(auth, newEmail.value, newPassword.value)
-            .then((userCredential) => {
+            avaliableQuestions.splice(questionsIndex, 1);
 
-                // Cria uma base de dados para o usuário 
-                let dado = doc(db, "user", userCredential.user.uid);
-                setDoc(dado, { nome: newName.value, email: newEmail.value });
+            acceptingAnswers = true;
+        }
 
-                signUpMessage.innerHTML = "<span style='color: green;'>Usuário cadastrado</span>";
-                console.log("Usuário Cadastrado Com Sucesso!");
+        // Adiciona um evento nas opções 
+        choices.forEach(choice => {
+            choice.addEventListener("click", e=> {
+                if (!acceptingAnswers) return;
 
-            }).catch((error) => {
-                
-                signUpMessage.innerHTML = "<span style='color: red;'>Dados inválidos</span>";
-                console.log(error.code);
-                console.log(error.message);
+                acceptingAnswers = false;
+                const selectedChoice = e.target;
+                const selectedAnswer = selectedChoice.dataset["option"];
+
+                let classToApply = selectedAnswer == currentQuestion.resposta ? "correct" : "incorrect";
+
+                if (classToApply === "correct"){
+                    incrementScore(SCORE_POINTS);
+                }
+
+                // Muda a cor das alternativas 
+                selectedChoice.parentElement.classList.add(classToApply);
+
+                setTimeout(() => {
+                    selectedChoice.parentElement.classList.remove(classToApply);
+                    getNewQuestion();
+                },1000);
             });
-        });
+        })
+
+        // Aumenta a pontuação 
+        var incrementScore = num => {
+            score += num;
+        }
+
+        // Inicia o jogo 
+        setTimeout(() => {
+            startGame();
+        },1000);
+
     </script>
-    <script src="./js/index.js"></script>
 </body>

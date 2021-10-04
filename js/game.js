@@ -80,7 +80,7 @@ var updateResults = function(selectedChoice,isCorrect) {
     quizResults.innerHTML += "<h2 class='question' style='font-weight:bold;'>Questão " + questionCounter +" </h2>";
     quizResults.innerHTML += "<hr>";
     quizResults.innerHTML += "<p class='question '>" + currentQuestion.enunciado +" </p>";
-    if (isCorrect === "correct"){
+    if (isCorrect === "incorrect"){
         quizResults.innerHTML += "<p class='choice-text incorrect'>" 
         + currentQuestion["option" + selectedChoice] + "</p>";
     }

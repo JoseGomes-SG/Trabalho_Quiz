@@ -61,7 +61,7 @@ choices.forEach(choice => {
         const selectedChoice = e.target;
         const selectedAnswer = selectedChoice.dataset["option"];
 
-        var classToApply = selectedAnswer == currentQuestion.resposta ? "correct" : "incorrect";
+        let classToApply = selectedAnswer == currentQuestion.resposta ? "correct" : "incorrect";
 
         // Muda a cor das alternativas 
         selectedChoice.parentElement.classList.add(classToApply);
@@ -72,7 +72,7 @@ choices.forEach(choice => {
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
             getNewQuestion();
-        }, 1000);
+        }, 500);
     });
 })
 
@@ -80,7 +80,7 @@ var updateResults = function(selectedChoice,isCorrect) {
     quizResults.innerHTML += "<h2 class='question' style='font-weight:bold;'>Questão " + questionCounter +" </h2>";
     quizResults.innerHTML += "<hr>";
     quizResults.innerHTML += "<p class='question '>" + currentQuestion.enunciado +" </p>";
-    if (isCorrect === "incorrect"){
+    if (isCorrect == "incorrect"){
         quizResults.innerHTML += "<p class='choice-text incorrect'>" 
         + currentQuestion["option" + selectedChoice] + "</p>";
     }

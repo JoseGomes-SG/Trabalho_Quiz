@@ -17,9 +17,11 @@ let currentQuestion = {}
 let questionCounter = 0;
 let avaliableQuestions = [];
 
+const MAX_QUESTIONS = 10;
+
 // Coleta as questões do banco 
 const Http = new XMLHttpRequest();
-const url = "https://form-f5d6e-default-rtdb.firebaseio.com/provas/2018/questao.json";
+const url = "https://form-f5d6e-default-rtdb.firebaseio.com/provas/questao.json";
 Http.open("GET", url);
 Http.send();
 
@@ -32,12 +34,13 @@ var startGame = () => {
 
 // Atualiza questões 
 var getNewQuestion = () => {
-    if (avaliableQuestions.length === 0 || questionCounter > MAX_QUESTIONS) {
+    if (questionCounter == MAX_QUESTIONS) {
+        quizResults.innerHTML += "<a href='index.html' class='btn btn-primary btn-lg float-end rounded-pill'>Voltar Ao Início</a>";
         return showReview();
     }
 
     questionCounter++;
-    progressText.innerHTML = "Questão " + questionCounter;
+    progressText.innerHTML = "Questão " + questionCounter + " de " + MAX_QUESTIONS;
 
     const questionsIndex = Math.floor(Math.random() * avaliableQuestions.length);
     currentQuestion = avaliableQuestions[questionsIndex];
@@ -111,7 +114,6 @@ Http.onreadystatechange = function () {
                 resposta: values.resposta
             });
         });
-        MAX_QUESTIONS = questions.length;
         return startGame();
     }
 }

@@ -1,5 +1,4 @@
 // Variáveis referentes ao quiz 
-const quizResults = document.querySelector("#quiz-results");
 const quizArea = document.querySelector("#quiz-game");
 
 // Relacionando as variáveis do formulário 
@@ -7,16 +6,15 @@ const choices = Array.from(document.querySelectorAll(".choice-text"));
 const question = document.querySelector(".question");
 const progressText = document.querySelector("#progressText");
 
-// Esconde a tela de revisão
-quizResults.style.display = "none";
-
 // Variáveis referentes a lógica do quiz 
 let acceptingAnswers = true;
 let currentQuestion = {}
 let questionCounter = 0;
 let avaliableQuestions = [];
 
-const MAX_QUESTIONS = 10;
+var quizResults = "";
+
+const MAX_QUESTIONS = 20;
 
 // Iniciar Quiz 
 var startGame = (questions) => {
@@ -28,7 +26,6 @@ var startGame = (questions) => {
 // Atualiza questões 
 var getNewQuestion = () => {
     if (questionCounter == MAX_QUESTIONS) {
-        quizResults.innerHTML += "<a href='index.html' class='btn btn-primary btn-lg float-end rounded-pill'>Voltar Ao Início</a>";
         return showReview();
     }
 
@@ -68,25 +65,25 @@ choices.forEach(choice => {
         setTimeout(() => {
             selectedChoice.parentElement.classList.remove(classToApply);
             getNewQuestion();
-        }, 500);
+        }, 700);
     });
 })
 
 var updateResults = function(selectedChoice,isCorrect) {
-    quizResults.innerHTML += "<h2 class='question' style='font-weight:bold;'>Questão " + questionCounter +" </h2>";
-    quizResults.innerHTML += "<hr>";
-    quizResults.innerHTML += "<p class='question '>" + currentQuestion.enunciado +" </p>";
+    quizResults += "<h2 class='question' style='font-weight:bold;'>Questão " + questionCounter +" </h2>";
+    quizResults += "<hr>";
+    quizResults += "<p class='question '>" + currentQuestion.enunciado +" </p>";
     if (isCorrect == "incorrect"){
-        quizResults.innerHTML += "<p class='choice-text incorrect'>" 
+        quizResults += "<p class='choice-text incorrect'>" 
         + currentQuestion["option" + selectedChoice] + "</p>";
     }
-    quizResults.innerHTML += "<p class='choice-text correct'>" 
+    quizResults += "<p class='choice-text correct'>" 
     + currentQuestion["option" + currentQuestion.resposta] + "</p>";
-    quizResults.innerHTML += "<br>";
+    quizResults += "<br>";
 }
 
 // Mostra os resultados do teste 
 var showReview = function(){
-    quizArea.style.display = "none";
-    quizResults.style.display = "block";
+    sessionStorage.setItem("review", quizResults);
+    window.open("review.html","_self");
 }

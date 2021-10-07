@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
+body {
+    background-color: black;
+    font-family: "Nova Square", cursive;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-center {
+    justify-content: center;
+    align-items: center;
+}
+
+body {
+    background: black;
+}
+
+#quiz-game {
+    background: white;
+}
+
+.question {
+    color: black;
+    font-size: 1.2rem;
+}
+
+.correct {
+    padding: 3px;
+    background: rgba(11,223,36);
+    border-radius: 5px;
+}
+
+.incorrect {
+    padding: 3px;
+    background: rgba(230,29,29,1);
+    border-radius: 5px;
+}

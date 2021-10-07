@@ -1,18 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+
 body {
+    background-color: black;
     background-image: url("../img/background.jpg");
+    background-repeat: no-repeat;
     background-size: cover;
-}
-
-#quiz-game {
-    color: #ffffff;
-}
-
-#quiz-results {
-    background-color: white;
-    padding: 1rem;
+    font-family: "Nova Square", cursive;
 }
 
 .question {
+    color: white;
     font-size: 1.2rem;
 }
 
@@ -53,6 +50,7 @@ body {
 }
 
 #hud {
+    color: white;
     display: flex;
     justify-content: space-between;
 }

@@ -1,21 +1,35 @@
+body {
+    background-image: url("../img/background.jpg");
+    background-size: cover;
+}
+
+#quiz-game {
+    color: #ffffff;
+}
+
+#quiz-results {
+    background-color: white;
+    padding: 1rem;
+}
+
 .question {
     font-size: 1.2rem;
 }
 
 .choice-container {
     display: flex;
-    color: #fff;
+    color: black;
     width: 100%;
     margin-bottom: 5px;
     border-radius: 5px;
-    background: rgb(18, 93, 255);
+    background: white;
     font-size: 1rem;
     min-width: 10px;
 }
 
 .choice-container:hover {
     cursor: pointer;
-    box-shadow: 0 0.4rem 1.4rem 0 rgba(6, 103, 247, 0.5);
+    box-shadow: 0 0.4rem 1.4rem 0 grey;
     transform: transform 100ms;
 }
 
@@ -29,11 +43,13 @@
 }
 
 .correct {
-    background: linear-gradient(32deg, rgba(11,223,36) 0%, rgb(41,232,111) 100%);
+    background: rgba(11,223,36);
+    border-radius: 5px;
 }
 
 .incorrect {
-    background: linear-gradient(32deg, rgba(230,29,29,1) 0%, rgb(224,11,11) 100%);
+    background: rgba(230,29,29,1);
+    border-radius: 5px;
 }
 
 #hud {

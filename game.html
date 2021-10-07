@@ -55,10 +55,52 @@
         </div>
 
         <div id="quiz-results">
-            <h2 style="font-weight: bold;">Resultados </h2>
+            <h2>Resultados Finais</h2>
             <br>
         </div>
 
     </div>
     <script src="./js/game.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.1.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCRPfI1Mkrhcta15kWTzBFQeslztvMUPIU",
+            authDomain: "form-f5d6e.firebaseapp.com",
+            databaseURL: "https://form-f5d6e-default-rtdb.firebaseio.com",
+            storageBucket: "form-f5d6e.appspot.com",
+        };
+
+        initializeApp(firebaseConfig);
+
+        const db = getDatabase();
+
+        const referenceList = ref(db, "provas/questao");
+
+        var questionArray = [];
+
+        var cont = 0;
+
+        // Insere as questões no array 
+        onValue(referenceList, (snapshot) => {
+            snapshot.forEach((childSnapshot) => {
+                let values = childSnapshot.val();
+                questionArray.push({
+                    enunciado: values.enunciado,
+                    optionA: values.alternativas["A"],
+                    optionB: values.alternativas["B"],
+                    optionC: values.alternativas["C"],
+                    optionD: values.alternativas["D"],
+                    optionE: values.alternativas["E"],
+                    resposta: values.resposta
+                });
+                cont++;
+            });
+            return startGame(questionArray);
+        }, {
+            onlyOnce: true
+        });
+
+    </script>
 </body>

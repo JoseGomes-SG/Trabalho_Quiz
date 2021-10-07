@@ -11,7 +11,6 @@ const progressText = document.querySelector("#progressText");
 quizResults.style.display = "none";
 
 // Variáveis referentes a lógica do quiz 
-const questions = [];
 let acceptingAnswers = true;
 let currentQuestion = {}
 let questionCounter = 0;
@@ -19,14 +18,8 @@ let avaliableQuestions = [];
 
 const MAX_QUESTIONS = 10;
 
-// Coleta as questões do banco 
-const Http = new XMLHttpRequest();
-const url = "https://form-f5d6e-default-rtdb.firebaseio.com/provas/questao.json";
-Http.open("GET", url);
-Http.send();
-
 // Iniciar Quiz 
-var startGame = () => {
+var startGame = (questions) => {
     questionCounter = 0;
     avaliableQuestions = [...questions];
     getNewQuestion();
@@ -96,24 +89,4 @@ var updateResults = function(selectedChoice,isCorrect) {
 var showReview = function(){
     quizArea.style.display = "none";
     quizResults.style.display = "block";
-}
-
-// Relaciona as questões as variáveis 
-Http.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-        let archieve = JSON.parse(Http.responseText);
-        Object.keys(archieve).forEach(function (key) {
-            let values = archieve[key];
-            questions.push({
-                enunciado: values.enunciado,
-                optionA: values.alternativas["A"],
-                optionB: values.alternativas["B"],
-                optionC: values.alternativas["C"],
-                optionD: values.alternativas["D"],
-                optionE: values.alternativas["E"],
-                resposta: values.resposta
-            });
-        });
-        return startGame();
-    }
 }

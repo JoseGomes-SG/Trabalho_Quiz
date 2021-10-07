@@ -70,7 +70,7 @@ choices.forEach(choice => {
 })
 
 var updateResults = function(selectedChoice,isCorrect) {
-    quizResults += "<h2 class='question' style='font-weight:bold;'>Questão " + questionCounter +" </h2>";
+    quizResults += "<h2 class='question'>Questão " + questionCounter +" </h2>";
     quizResults += "<hr>";
     quizResults += "<p class='question '>" + currentQuestion.enunciado +" </p>";
     if (isCorrect == "incorrect"){

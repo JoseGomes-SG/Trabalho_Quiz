@@ -1,9 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Nova+Square&display=swap');
+* {
+    font-family: "Nova Square", cursive;
+}
+
 body {
     background-color: black;
     background-image: url("../img/background.jpg");
     background-repeat: no-repeat;
     background-size: cover;
+}
+
+#hud {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.hud-prefix {
+    text-align: center;
+    font-size: 2rem;
+}
+
+.hud-main-text {
+    text-align: center;
 }
 
 .container {
@@ -16,7 +35,6 @@ body {
 .question {
     color: white;
     font-size: 1.2rem;
-    font-family: "Nova Square", cursive;
 }
 
 .choice-container {
@@ -28,7 +46,6 @@ body {
     background: white;
     font-size: 1rem;
     min-width: 10px;
-    font-family: "Nova Square", cursive;
 }
 
 .choice-container:hover {
@@ -56,23 +73,10 @@ body {
     border-radius: 5px;
 }
 
-#hud {
-    color: white;
-    font-family: "Nova Square", cursive;
-    display: flex;
-    justify-content: space-between;
-}
-
-.hud-prefix {
-    text-align: center;
-    font-size: 2rem;
-}
-
-.hud-main-text {
-    text-align: center;
-}
-
 @media screen and (max-width: 768 px) {
+    .container {
+        width: 750px;
+    }
     .choice-container {
         min-width: 20rem;
     }
